@@ -1,0 +1,67 @@
+
+
+# Entities & Their Data Members
+
+### 1. **Role**
+
+* `id : Long`
+* `name : RoleName` (enum → `ADMIN, AGENT, USER`)
+
+---
+
+### 2. **User**
+
+* `id : Long`
+* `fullName : String`
+* `email : String`
+* `passwordHash : String`
+* `active : boolean`
+* `roles : Set<Role>`
+* `createdAt : Instant`
+* `updatedAt : Instant`
+
+---
+
+### 3. **Ticket**
+
+* `id : Long`
+* `code : String` (unique ticket code, e.g., `TK-2025-000123`)
+* `subject : String`
+* `description : String`
+* `status : TicketStatus` (enum → `OPEN, IN_PROGRESS, RESOLVED, CLOSED`)
+* `priority : TicketPriority` (enum → `LOW, MEDIUM, HIGH, URGENT`)
+* `owner : User` (creator)
+* `assignee : User` (nullable, assigned agent)
+* `closedAt : Instant` (nullable)
+* `comments : List<Comment>`
+* `history : List<TicketHistory>`
+* `createdAt : Instant`
+* `updatedAt : Instant`
+
+---
+
+### 4. **Comment**
+
+* `id : Long`
+* `ticket : Ticket`
+* `author : User`
+* `body : String`
+* `createdAt : Instant`
+* `updatedAt : Instant`
+
+---
+
+### 5. **TicketHistory**
+
+* `id : Long`
+* `ticket : Ticket`
+* `actor : User` (who performed the action)
+* `fromStatus : TicketStatus` (nullable)
+* `toStatus : TicketStatus` (nullable)
+* `fromAssignee : User` (nullable)
+* `toAssignee : User` (nullable)
+* `at : Instant` (timestamp)
+* `note : String`
+
+---
+
